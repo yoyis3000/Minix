@@ -82,6 +82,7 @@
 #define SCHED_PROC_NR ((endpoint_t) 10)	/* scheduler */
 #define LAST_SPECIAL_PROC_NR	11	/* An untyped version for
                                            computation in macros.*/
+#define SEMA_PROC_NR ((endpoint_t) 13) /* Our own service number, not sure if this is works cartman */
 #define INIT_PROC_NR ((endpoint_t) LAST_SPECIAL_PROC_NR)  /* init
                                                         -- goes multiuser */
 #define NR_BOOT_MODULES (INIT_PROC_NR+1)
