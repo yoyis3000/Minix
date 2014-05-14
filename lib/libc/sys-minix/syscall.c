@@ -14,7 +14,7 @@ int _syscall(endpoint_t who, int syscallnr, message *msgptr)
   status = sendrec(who, msgptr);
   if (status != 0) {
 	/* 'sendrec' itself failed. */
-	/* XXX - strerror doesn't know all the codes */
+	/* XXX - strerror doesn't know all the codes */ //cartman
 	msgptr->m_type = status;
   }
   if (msgptr->m_type < 0) {
