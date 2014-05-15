@@ -46,6 +46,7 @@ static void balance_queues(struct timer *tp);
 /* processes created by RS are sysytem processes */
 #define is_system_proc(p)	((p)->parent == RS_PROC_NR)
 
+#define IT_WORKS_MAYBE 1000
 static unsigned cpu_proc[CONFIG_MAX_CPUS];
 
 /*===========================================================================*
@@ -54,6 +55,8 @@ static unsigned cpu_proc[CONFIG_MAX_CPUS];
 
 int do_sem_init(int start_value)
 {
+  printf("From do_sem_init\n");
+  return IT_WORKS_MAYBE;
 }
 
 /*===========================================================================*
@@ -62,6 +65,8 @@ int do_sem_init(int start_value)
 
 int do_sem_down(int semaphore_number)
 {
+  printf("From do_sem_down\n");
+  return IT_WORKS_MAYBE;
 }
 
 /*===========================================================================*
@@ -70,6 +75,8 @@ int do_sem_down(int semaphore_number)
 
 int do_sem_up(int semaphore_number)
 {
+  printf("From do_sem_init\n");
+  return IT_WORKS_MAYBE;
 }
 
 /*===========================================================================*
@@ -78,4 +85,6 @@ int do_sem_up(int semaphore_number)
 
 int do_sem_release(int semaphore_number)
 {
+  printf("From do_sem_release\n");
+  return IT_WORKS_MAYBE;
 }
