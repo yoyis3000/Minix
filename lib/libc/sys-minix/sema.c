@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <errno.h>
+#include <minix/com.h>
 
 /* saw this in sem.c, I might need it apperently */ // cartman
 

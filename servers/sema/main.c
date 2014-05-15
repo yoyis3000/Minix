@@ -6,7 +6,7 @@
  * here. Used from within sema____.h
  */
 #define _MAIN
-
+#include <minix/com.h>
 #include "sema.h"
 //#include "semaproc.h"
 
