@@ -55,45 +55,28 @@ int main(void)
 					result = ENOSYS;
 			}
 
-			goto sendreply;
 		}
 
 		switch(call_nr) {
-		case SEMA_INHERIT:
-		case SEMA_DOWN:
+		case SEM_DOWN:
 			result = do_sem_down(&m_in);
 			break;
-		case SEMA_UP:
+		case SEM_UP:
 			result = do_sem_up(&m_in);
 			break;
-		case SEMA_RELEASE:
+		case SEM_RELEASE:
 			result = do_sem_release(&m_in);
 			break;
-		case SEMA_INIT:
+		case SEM_INIT:
 			result = do_sem_init(&m_in);
 			break;
 		default:
 			result = no_sys(who_e, call_nr);
 		}
 
-sendreply:
 		/* Send reply. */
-		if (result != SUSPEND) {
-			m_in.m_type = result;  		/* build reply message */
-			reply(who_e, &m_in);		/* send it away */
-		}
  	}
 	return(OK);
-}
-
-/*===========================================================================*
- *				reply					     *
- *===========================================================================*/
-static void reply(endpoint_t who_e, message *m_ptr)
-{
-	int s = send(who_e, m_ptr);    /* send the message */
-	if (OK != s)
-		printf("SEMA: unable to send reply to %d: %d\n", who_e, s);
 }
 
 

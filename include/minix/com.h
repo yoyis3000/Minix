@@ -1134,9 +1134,9 @@
 
  # define SEM_VALUE m1_i1
  #define SEM_INIT (IPC_BASE+8)
- #define SEM_DOWN (ICP_BASE+9)
- #define SEM_UP (ICP_BASE+10)
- #define SEM_RELEASE (ICP_BASE+11)
+ #define SEM_DOWN (IPC_BASE+9)
+ #define SEM_UP (IPC_BASE+10)
+ #define SEM_RELEASE (IPC_BASE+11)
  /* END OF cartman */
  
 
