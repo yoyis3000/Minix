@@ -13,8 +13,8 @@
 /* Declare some local functions. */
 /*static void reply(endpoint_t whom, message *m_ptr);
 static void sef_local_startup(void);
-
-struct machine machine;		/* machine info */
+*/
+struct machine machine;	
 
 /*===========================================================================*
  *				main					     *
@@ -71,7 +71,7 @@ int main(void)
 			result = do_sem_init(&m_in);
 			break;
 		default:
-			result = no_sys(who_e, call_nr);
+			result = EINVAL;;
 		}
 
 		/* Send reply. */

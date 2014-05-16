@@ -11,6 +11,7 @@
 //#include "schedproc.h"
 #include <assert.h>
 #include <minix/com.h>
+#include "sema.h"
 #include <machine/archtypes.h>
 #include "kernel/proc.h" /* for queue constants */ // cartman
 
@@ -47,7 +48,6 @@ static void balance_queues(struct timer *tp);
 #define is_system_proc(p)	((p)->parent == RS_PROC_NR)
 
 #define IT_WORKS_MAYBE 1000
-static unsigned cpu_proc[CONFIG_MAX_CPUS];
 
 /*===========================================================================*
  *				do_sem_init				     *

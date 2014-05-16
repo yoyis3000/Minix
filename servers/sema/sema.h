@@ -1,4 +1,4 @@
-/* This is the master header for the Semaphore.  It includes some other files
+/* This is the master header for PM.  It includes some other files
  * and defines the principal constants.
  */
 #define _POSIX_SOURCE      1	/* tell headers to include POSIX stuff */
@@ -9,13 +9,20 @@
 #include <minix/config.h>	/* MUST be first */
 #include <sys/types.h>
 #include <minix/const.h>
+#include <minix/type.h>
 
+#include <fcntl.h>
+#include <unistd.h>
 #include <minix/syslib.h>
 #include <minix/sysutil.h>
 #include <minix/timers.h>
+#include <minix/param.h>
 
+#include <limits.h>
 #include <errno.h>
+#include <sys/param.h>
 
+//#include "const.h"
+//#include "type.h"
 #include "proto.h"
-
-extern struct machine machine;		/* machine info */
+//#include "glo.h"
