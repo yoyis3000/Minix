@@ -3,16 +3,16 @@
 
 struct semaproc;
 #include <timers.h>
-
+#include "dubStack.h"
 /* main.c */
 int main(void);
 
 /* sema.c */
 static int get_ipc_endpt(endpoint_t *pt);
-int do_sem_init(int start_value);
-int do_sem_down(int semaphore_number);
-int do_sem_up(int semaphore_number);
-int do_sem_release(int semaphore_number);
+int do_sem_init(message *m_ptr);
+int do_sem_down(message *m_ptr);
+int do_sem_up(message *m_ptr );
+int do_sem_release(message *m_ptr);
 
 //void setreply(int proc_nr, int result);
 

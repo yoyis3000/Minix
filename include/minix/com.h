@@ -1132,7 +1132,9 @@
  /*--Where I am going to define my SEMA system calls ---*/ 
  /*Cartman*/
 
- # define SEM_VALUE m1_i1
+ # define SEM_VALUE  m1_i1
+ # define SEM_NUMBER m1_i2
+ # define SEM_ID     m1_i3
  #define SEM_INIT (IPC_BASE+8)
  #define SEM_DOWN (IPC_BASE+9)
  #define SEM_UP (IPC_BASE+10)

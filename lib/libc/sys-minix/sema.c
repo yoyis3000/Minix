@@ -23,7 +23,7 @@ static int get_ipc_endpt(endpoint_t *pt){
 int sem_init(int start_value){
   message m;
   m.SEM_VALUE = start_value;
-
+  m.m_type = SEM_INIT;
   if (get_ipc_endpt(&SEMA_PROC_NR) != OK) {
     errno = ENOSYS;
     return -1;
@@ -35,6 +35,7 @@ int sem_init(int start_value){
 int sem_down(int semaphore_number){
   message m;
   m.SEM_VALUE = semaphore_number;
+  m.m_type = SEM_DOWN;
 
   if (get_ipc_endpt(&SEMA_PROC_NR) != OK) {
     errno = ENOSYS;
@@ -46,6 +47,7 @@ int sem_down(int semaphore_number){
 
 int sem_up(int semaphore_number){
   message m;
+  m.m_type = SEM_UP;
   m.SEM_VALUE = semaphore_number;
   if (get_ipc_endpt(&SEMA_PROC_NR) != OK) {
     errno = ENOSYS;
@@ -58,6 +60,7 @@ int sem_up(int semaphore_number){
 int sem_release(int semaphore_number){
   message m;
   m.SEM_VALUE = semaphore_number;
+  m.m_type = SEM_RELEASE;
   if (get_ipc_endpt(&SEMA_PROC_NR != OK) {
     errno = ENOSYS;
     return -1;

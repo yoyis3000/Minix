@@ -6,14 +6,18 @@
  * here. Used from within sema____.h
  */
 #define _MAIN
+
 #include <minix/com.h>
 #include "sema.h"
+#include <stdio.h>
+#include "dubStack.h"
 //#include "semaproc.h"
 
 /* Declare some local functions. */
 /*static void reply(endpoint_t whom, message *m_ptr);
 static void sef_local_startup(void);
 */
+
 struct machine machine;	
 
 /*===========================================================================*
@@ -31,9 +35,15 @@ int main(void)
 
 	/* SEF startup. */
 	sef_startup();
+  int i;
+  for(i=0; i<10; i++){
+    semaphores[i] = (Sem*) malloc(sizeof(Sem));
+    semaphores[i]->q = makeQueue();
+    semaphores[i]->verified = 0;
+  }
 
-	if (OK != (s=sys_getmachine(&machine)))
-		panic("couldn't get machine info: %d", s);
+	//if (OK != (s=sys_getmachine(&machine)))
+	//	panic("couldn't get machine info: %d", s);
 
 	/* This is SCHED's main loop - get work and do it, forever and forever. */
 	while (TRUE) {
@@ -45,17 +55,7 @@ int main(void)
 		who_e = m_in.m_source;	/* who sent the message */
 		call_nr = m_in.m_type;	/* system call number */
 
-		/* Check for system notifications first. Special cases. */
-		if (is_ipc_notify(ipc_status)) {
-			switch(who_e) {
-				case CLOCK:
-					expire_timers(m_in.NOTIFY_TIMESTAMP);
-					continue;	/* don't reply */
-				default :
-					result = ENOSYS;
-			}
-
-		}
+		
 
 		switch(call_nr) {
 		case SEM_DOWN:
@@ -75,7 +75,12 @@ int main(void)
 		}
 
 		/* Send reply. */
- 	}
+   if(result != EDONTREPLY){
+      message m_out;
+      m_out.m_type = result;
+      sendnb(who_e, &m_out);
+    }
+	}
 	return(OK);
 }
 
