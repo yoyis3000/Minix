@@ -249,15 +249,13 @@ int main(void)
     semaphores[i]->verified = 0;
   }
 
-  //if (OK != (s=sys_getmachine(&machine)))
-  //  panic("couldn't get machine info: %d", s);
 
   /* This is SCHED's main loop - get work and do it, forever and forever. */
   while (TRUE) {
     int ipc_status;
-    result = OK;
+    result = 0;
     /* Wait for the next message and extract useful information from it. */
-    if (sef_receive_status(ANY, &m_in, &ipc_status) != OK)
+    if (sef_receive_status(ANY, &m_in, &ipc_status) != 0)
       panic("SCHED sef_receive error");
     who_e = m_in.m_source;  /* who sent the message */
     call_nr = m_in.m_type;  /* system call number */
@@ -288,7 +286,7 @@ int main(void)
       sendnb(who_e, &m_out);
     }
   }
-  return(OK);
+  return 0;
 }
 
 /***main end ***/
@@ -378,12 +376,12 @@ int do_sem_up(message *m_ptr)
   if(semaphores[semnum]->q->size > 0){
     semaphores[semnum]->semval--;
     message m;
-    m.m_type = OK;
+    m.m_type = 0;
     m.m_source = deQueue(semaphores[semnum]->q);
     sendnb(m.m_source, &m);
   }
 
-  return OK;
+  return 0;
 }
 
 /*===========================================================================*
@@ -398,5 +396,5 @@ int do_sem_release(message *m_ptr)
   semaphores[semnum]->q->size = 0;
  // clear_queue(semaphores[semNumber]->q);
 
-  return OK;
+  return 0;
 }
