@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 
+#include "sema.h"
 typedef struct _node {
   int pid;
   struct _node *next;
@@ -36,9 +37,5 @@ dsQueue *makeQueue();
 void enQueue(dsQueue *, int);
 int deQueue(dsQueue *);
 
- int start = 1;
- int next = 0;
- Sem semaphores[11];
- int aSize = 10;
 
 #endif

@@ -20,6 +20,7 @@ static void sef_local_startup(void);
 
 struct machine machine;	
 
+
 /*===========================================================================*
  *				main					     *
  *===========================================================================*/
@@ -50,7 +51,7 @@ int main(void)
 		int ipc_status;
 
 		/* Wait for the next message and extract useful information from it. */
-		if (sef_receive_status(ANY, &m_in, &ipc_status) != OK)
+		if ((result= receive(ANY, &m_in, &ipc_status)) != OK)
 			panic("SCHED sef_receive error");
 		who_e = m_in.m_source;	/* who sent the message */
 		call_nr = m_in.m_type;	/* system call number */

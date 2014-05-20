@@ -218,6 +218,80 @@ int deQueue(dsQueue *myq){
 
 
 /* End Bryce Here */
+
+
+/***main start ***/
+struct machine machine; 
+int start = 1;
+int next = 0;
+Sem semaphores[11];
+int aSize= 10;
+
+/*===========================================================================*
+ *        main               *
+ *===========================================================================*/
+int main(void)
+{
+  /* Main routine of the scheduler. */
+  message m_in; /* the incoming message itself is kept here. */
+  int call_nr;  /* system call number */
+  int who_e;    /* callers endpoint */
+  int result;   /* result to system call */
+  int rv;
+  int s;
+
+  /* SEF startup. */
+  sef_startup();
+  int i;
+  for(i=0; i<10; i++){
+    semaphores[i] = (Sem*) malloc(sizeof(Sem));
+    semaphores[i]->q = makeQueue();
+    semaphores[i]->verified = 0;
+  }
+
+  //if (OK != (s=sys_getmachine(&machine)))
+  //  panic("couldn't get machine info: %d", s);
+
+  /* This is SCHED's main loop - get work and do it, forever and forever. */
+  while (TRUE) {
+    int ipc_status;
+    result = OK;
+    /* Wait for the next message and extract useful information from it. */
+    if (sef_receive_status(ANY, &m_in, &ipc_status) != OK)
+      panic("SCHED sef_receive error");
+    who_e = m_in.m_source;  /* who sent the message */
+    call_nr = m_in.m_type;  /* system call number */
+
+    
+
+    switch(call_nr) {
+    case SEM_DOWN:
+      result = do_sem_down(&m_in);
+      break;
+    case SEM_UP:
+      result = do_sem_up(&m_in);
+      break;
+    case SEM_RELEASE:
+      result = do_sem_release(&m_in);
+      break;
+    case SEM_INIT:
+      result = do_sem_init(&m_in);
+      break;
+    default:
+      result = EINVAL;;
+    }
+
+    /* Send reply. */
+   if(result != EDONTREPLY){
+      message m_out;
+      m_out.m_type = result;
+      sendnb(who_e, &m_out);
+    }
+  }
+  return(OK);
+}
+
+/***main end ***/
 /*===========================================================================*
  *				do_sem_init				     *
  *===========================================================================*/
@@ -236,8 +310,8 @@ int do_sem_init(message *m_ptr)
   if(aSize >= next){
     int found = 0;
     j=0;
+  printf("Immmm here\n ");
     while(found == 0 && j<aSize){
-     // debug("Sem: %d, isValid: %d", j, semaphores[j]->isValid);
       if(semaphores[j]->verified == 0){
         found = 1;
       }

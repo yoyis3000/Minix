@@ -25,7 +25,6 @@
 //#include "const.h"
 //#include "type.h"
 #include "proto.h"
-#include "dubStack.h"
 //#include "glo.h"
  
 

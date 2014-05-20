@@ -3,7 +3,6 @@
 
 struct semaproc;
 #include <timers.h>
-#include "dubStack.h"
 /* main.c */
 int main(void);
 
